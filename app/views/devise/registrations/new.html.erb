@@ -11,15 +11,15 @@
           </div>
           <div class="form-group">
             <%= f.label :Email %><br />
-            <%= f.text_field :email, :class =>'form-control' %>
+            <%= f.email_field :email, :class =>'form-control' %>
           </div>
           <div class="form-group">
             <%= f.label :Password %><br />
-            <%= f.text_field :password, :class => 'form-control'%>
+            <%= f.password_field :password, :class => 'form-control'%>
           </div>
           <div class="form-group">
           <%= f.label :password_confirmation %><br />
-            <%= f.text_field :password_confirmation, label: false, :class => 'form-control' %>
+            <%= f.password_field :password_confirmation, label: false, :class => 'form-control' %>
           </div>
 
           <div class="actions">

@@ -17,3 +17,11 @@ body {
   font-weight: 400;
   letter-spacing: -0.5px;
 }
+.navbar-default .navbar-nav > li > a {
+  color: #0366d6;
+  font-size: 18px;
+}
+.navbar-default {
+  background-color: #fff;
+  border-color: #e7e7e7;
+}
