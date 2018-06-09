@@ -1,14 +1,24 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+
   protect_from_forgery with: :exception
+  before_filter :configure_permitted_parameters, if: :devise_controller?
+
+  before_action :set_user
+
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
 
   def after_sign_in_path_for(source)
-    # if source.is_a?(User)
-    #   return rep_root_path if( source.is?(:admin) || source.is?(:agent) )
-    #   return admin_root_path if source.is?(:super_admin)
-    # else
-    #   return rep_root_path
-    # end
     root_path
+  end
+
+  private
+
+  def set_user
+    @user = current_user
   end
 
  def configure_permitted_parameters

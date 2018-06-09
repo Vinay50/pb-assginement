@@ -12,6 +12,17 @@ body {
   background-color: #fff;
   margin-top: 105px;
 }
+.project-boundry{
+  border: 1px solid #d8dee2;;
+  padding: 10px;
+  background-color: #fff;
+  margin-top: 35px;
+}
+.project-boundry-section{
+  border: 1px solid #d8dee2;;
+  padding: 20px;
+  background-color: #fff;
+}
 .custom-header{
   font-size: 27px;
   font-weight: 400;
