@@ -15,4 +15,48 @@ class User < ActiveRecord::Base
 
   enum role: [:user, :admin]
 
+  def all_active_projects
+    self.projects.active + self.collaboration_projects
+  end
+
+  def active_projects
+    self.projects.active
+  end
+
+  def complete_projects
+    self.projects.complete
+  end
+
+  def overdue_projects
+    self.projects.overdue
+  end
+
+  def active_tasks
+    self.tasks.active
+  end
+
+  def complete_tasks
+    self.tasks.complete
+  end
+
+  def overdue_tasks
+    self.tasks.overdue
+  end
+
+  def active_assigned_tasks
+    self.assigned_tasks.active
+  end
+
+  def complete_assigned_tasks
+    self.assigned_tasks.complete
+  end
+
+  def overdue_assigned_tasks
+    self.assigned_tasks.overdue
+  end
+
+  def collaboration_tags
+    self.collaboration_projects.collect {|task| task.tags.collect {|tag| tag}}
+  end
+
 end

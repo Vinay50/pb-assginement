@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :set_project
-  before_filter :set_task
+  # before_filter :set_task
 
   def index
   end
@@ -20,6 +20,11 @@ class TasksController < ApplicationController
     end
   end
 
+  def quick_new_task
+    @task = Task.new
+    @projects = @user.active_projects + @user.collaboration_projects.active
+  end
+
   def edit
   end
 
@@ -32,7 +37,7 @@ class TasksController < ApplicationController
   private
 
   def set_project
-    @project = Project.find_by(:id params[:project_id])
+    @project = Project.find_by(id: params[:project_id])
   end
 
   def task_params
