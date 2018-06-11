@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Project.new(task_params)
+    @task = Task.new(task_params)
     if @task.save
       flash[:success] = "Task added"
       redirect_to task_path(@task)
@@ -25,10 +25,30 @@ class TasksController < ApplicationController
     @projects = @user.active_projects + @user.collaboration_projects.active
   end
 
+ def show
+    @project = @task.project
+    @comment = Comment.new
+    @comments = @task.comments.reverse
+    @assigned_users = @task.assigned_users
+    @tags = @task.tags
+  end
+
   def edit
+    @project = @task.project
+    @task_users = task_users
   end
 
   def update
+    @task.update(task_params)
+    if task_params[:tag_names]
+      @task.update(tag_names: task_params[:tag_names])
+    end
+    redirect_to task_path(@task)
+  end
+
+  def destroy
+    @task.destroy
+    redirect_to project_tasks_path(@project)
   end
 
   def delete
