@@ -7,12 +7,25 @@
     <div class="row">
       <div class="col-md-4 project-boundry-section">
         <h4 class="text-center">Project Details</h4>
+        <p>Name:<%= @project.name%></p>
+        <p>Description:<%= @project.description %></p>
+        <p>Created on:<%= @project.created_at %></p>
+        <p>Status:<%= @project.status%></p>
       </div>
       <div class="col-md-4 project-boundry-section">
-        <h4 class="text-center">Developer Section</h4>
+        <h4 class="text-center">Developers Added to Project</h4>
+        <% @project.collaborators.each do |dev|%>
+          <p><%= dev.name %></p>
+        <% end %>
       </div>
       <div class="col-md-4 project-boundry-section">
         <h4 class="text-center">Task Details</h4>
+        <% @project.tasks.each do |task|%>
+          <p>Name:<%= task.name%></p>
+          <p>Description:<%= task.description %></p>
+          <p>Created on:<%= task.created_at %></p>
+          <p>Status:<%= task.status%></p>
+        <% end %>
       </div>
     </div>
   </div>

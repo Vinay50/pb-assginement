@@ -14,12 +14,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
+        <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+       <!--  <li><a href="#">Link</a></li> -->
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? && current_user.is_admin %>
+          <li><a href="/tasks/new">Add Task </a></li>
           <li><a href="/projects/new">Add Project</a></li>
         <% end %>
         <% if user_signed_in? %>

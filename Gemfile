@@ -42,6 +42,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rubycritic'
   gem 'reek'
+  gem 'pry'
 end
 
 group :development do

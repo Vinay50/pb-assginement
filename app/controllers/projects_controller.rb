@@ -9,29 +9,59 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    binding.pry
     @project = Project.new(project_params)
     if @project.save
-      flash[:success] = "Project added successfully"
-      redirect_to projects_path
+      redirect_to project_path(@project)
     else
-      flash[:error] = "Could not add project. Please try later"
-      render 'new'
+      @project
+      render :new
     end
   end
 
   def show
-    @project = Project.find(params[:id])
+    @project = Project.find_by(id: params[:id])
   end
 
   def edit
+    @project = Project.find_by(id: params[:id])
   end
 
   def update
+    authorize @project
+    if @project.update(project_params)
+      redirect_to project_path(@project)
+    else
+      render :show
+    end
   end
+
+  def delete_collaborator
+    authorize @project
+    user = User.find_by(id: params[:user][:id])
+    @project.collaborators.delete(user)
+    @project.save
+    redirect_to project_path(@project)
+  end
+
+  def complete_tasks
+    @tasks = @project.tasks.complete
+  end
+
+  def complete
+    @projects = (@user.complete_projects + @user.collaboration_projects.complete).reverse
+  end
+
+  def overdue
+    @projects = (@user.projects.overdue + @user.collaboration_projects.overdue).reverse
+  end
+
+  ## PRIVATE METHODS
 
   private
 
+
   def project_params
-    params.require(:project).permit(:name, :description, :due_date, :manager_id, :status)
+    params.require(:project).permit(:name, :description, :collaborator_emails, :owner_id, :due_date, :status)
   end
 end

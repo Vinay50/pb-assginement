@@ -4,7 +4,7 @@ class Task < ApplicationRecord
 
   has_many :user_tasks, foreign_key: "assigned_task_id"
   has_many :assigned_users, through: :user_tasks
-  belongs_to :manager, class_name: "User"
+  belongs_to :owner, class_name: "User"
 
   enum status: [:active, :complete]
 
