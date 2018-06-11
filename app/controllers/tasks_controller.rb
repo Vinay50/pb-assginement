@@ -56,16 +56,32 @@ class TasksController < ApplicationController
 
   private
 
+ def set_user
+    @user = current_user
+  end
+
+  def set_task
+    @task = Task.find_by(id: params[:id])
+  end
+
   def set_project
     @project = Project.find_by(id: params[:project_id])
   end
 
-  def task_params
-    params.require(:task).permit(:name, :description, :due_date, :status, :project_id, :owner_id, assigned_user_ids: [])
+  def project_task_statuses_count
+    @overdue = @project.overdue_tasks.count
+    @active = @project.active_tasks.count
+    @complete = @project.complete_tasks.count
   end
 
-  def set_task
-    @task = Task.find(params[:id])
+  def all_task_statuses_count
+    @overdue = (current_user.overdue_tasks + current_user.overdue_assigned_tasks).uniq.count
+    @active = (current_user.active_tasks + current_user.active_assigned_tasks).uniq.count
+    @complete= (current_user.complete_tasks + current_user.complete_tasks).uniq.count
+  end
+
+  def task_params
+    params.require(:task).permit(:name, :description, :project_id, :owner_id, :due_date, :status, :tag_names, assigned_user_ids: [], tag_ids: [])
   end
 
   def task_users
